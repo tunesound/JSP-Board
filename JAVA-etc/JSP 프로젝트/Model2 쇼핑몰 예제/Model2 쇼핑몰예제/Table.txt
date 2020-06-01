@@ -1,0 +1,176 @@
+-------------------------------------------------
+사용자 테이블
+-------------------------------------------------
+create table users (
+user_id number(5) not null primary key,
+name varchar2(20) not null,
+company varchar2(50),
+dept varchar2(50),                 /* 부서 */
+title varchar2(50),                /* 직위 */
+id varchar2(10) not null,          /* 로그인 아이디 */
+password varchar2(10) not null,    /* 로그인 패스워드 */
+email varchar2(50),
+ssn varchar2(20),                  /* 주민등록번호 */
+status number(1) default 1 ,       /* 1:사용가능, 2:사용불가 */
+is_admin number(1) default 0,      /* 0:고객, 1관리자 */
+zipcode varchar2(10),
+address1 varchar2(100),             /* 동,면 까지 */
+address2 varchar2(50) ,            /* 세부주소 */
+company_phone varchar2(20),        /* 회사전화 */
+home_phone varchar2(20)            
+)
+
+create sequence user_id_seq;  /user_id용 시퀀스 */
+
+insert into users (user_id,name, id, password, is_admin) 
+values (user_id_seq.nextval,'이종철','admin','admin',1)
+
+insert into users (user_id,name, id, password, is_admin) 
+values (user_id_seq.nextval,'사용자1','user1','user1',0)
+
+insert into users (user_id,name, id, password, is_admin) 
+values (user_id_seq.nextval,'사용자2','user2','user2',0)
+
+
+---------------------------------------------------------
+우편번호 테이블 
+---------------------------------------------------------
+create table zipcode (
+postal_code varchar2(10),
+region1 varchar2(100),  /* 동까지의 주소 */
+region2 varchar2(100)   /* 동이후의 주소 */
+)
+
+
+insert into zipcode values ('135080','서울특별시 강남구 역삼동','628-14');
+insert into zipcode values ('135081','서울특별시 강남구 역삼동','728-14');
+insert into zipcode values ('135082','서울특별시 강남구 역삼1동','633-14');
+insert into zipcode values ('135083','서울특별시 강남구 역삼2동','333-14')
+
+
+------------------------------------------------------------
+상품테이블 
+------------------------------------------------------------
+create table products( 
+product_id number(5) not null primary key,
+product varchar2(50) not null,     /* 상품명 */
+model   varchar2(50) not null,     /* 모델명 */
+seller  varchar2(20) not null,     /* 판매자 */
+price   number(8) not null,        /* 가격 */
+unit    varchar2(10),              /* 단 위(개/세트/박스) */
+delivery_term number(2),           /* 배송기간(일단위로 기록) */
+stock   number(5),                 /* 재고량 */
+image   varchar2(100) not null,              /* 이미지명 */
+status  number(1)                  /* 상태 1:판매가능, 2:판매중지 */
+)
+
+create sequence product_id_seq;
+
+insert into products 
+values (product_id_seq.nextval,'볼펜','A01','이종철',5000,'개',2,50,
+'ballpen.jpg', 1);
+insert into products 
+values (product_id_seq.nextval,'보드','B01','이종철',7000,'개',3,500,
+'board.jpg', 1);
+insert into products 
+values (product_id_seq.nextval,'의자','C01','이종철',25000,'개',5,10,
+'chair.jpg', 1);
+insert into products 
+values (product_id_seq.nextval,'책상','D01','이종철',150000,'개',5,60,
+'chair.gif', 1);
+insert into products 
+values (product_id_seq.nextval,'노트북','E01','이종철',2500000,'대',3,70,
+'notebook.gif', 1);
+insert into products 
+values (product_id_seq.nextval,'A4용지','F01','이종철',15000,'박스',2,500,
+'paper.gif', 1);
+insert into products 
+values (product_id_seq.nextval,'프린터','G01','이종철',77000,'대',4,400,
+'printer.jpg', 1);
+insert into products 
+values (product_id_seq.nextval,'장미꽃','H01','이종철',12000,'다발',1,670,
+'rose.jpg', 1);
+insert into products 
+values (product_id_seq.nextval,'샤프','I01','이종철',7000,'개',2,1000,
+'sharp.gif', 1);
+insert into products 
+values (product_id_seq.nextval,'티슈','J01','이종철',3000,'개',3,2000,
+'tissue.gif', 1)
+
+
+------------------------------------------------------------
+주문테이블 
+------------------------------------------------------------
+create table orders (
+order_id number(5) not null primary key,
+user_id  number(5) not null ,
+order_total number(9),           /*주문 총 가격 */
+status number(1) ,               /* 1:관리자에 의한 주문미확인, 2:주문신청확인 */
+order_date date default sysdate, /* 주문일자 */
+CONSTRAINT orders_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) 
+)
+
+create sequence order_id_seq;
+
+insert into orders 
+values (order_id_seq.nextval, 2, 12000, 1, sysdate);
+insert into orders 
+values (order_id_seq.nextval, 2, 7000, 2, sysdate);
+insert into orders 
+values (order_id_seq.nextval, 2, 3000, 1, sysdate);
+insert into orders 
+values (order_id_seq.nextval, 2, 77000, 1, sysdate);
+insert into orders 
+values (order_id_seq.nextval, 2, 15000, 2, sysdate);
+insert into orders 
+values (order_id_seq.nextval, 2, 2500000, 1, sysdate)
+
+
+
+------------------------------------------------------------
+item테이블 (주문된 상품번호와 수량벙보 가짐)
+------------------------------------------------------------
+create table items (
+item_id number(5) not null,
+product_id number(5) not null, /* 상품 ID */
+order_id number(5) not null,   /* 주문ID  */
+qty number(4) not null,
+CONSTRAINT item_product_id_fk FOREIGN KEY (product_id) REFERENCES products(product_id) ,
+CONSTRAINT item_order_id_fk FOREIGN KEY (order_id) REFERENCES orders(order_id) 
+)
+
+create sequence item_id_seq;
+
+insert into items 
+values (item_id_seq.nextval, 8, 1, 1);
+insert into items 
+values (item_id_seq.nextval, 9, 2, 1);
+insert into items 
+values (item_id_seq.nextval, 10, 3, 1);
+insert into items 
+values (item_id_seq.nextval, 7, 4, 1);
+insert into items 
+values (item_id_seq.nextval, 6, 5, 1);
+insert into items 
+values (item_id_seq.nextval, 5, 6, 1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+)

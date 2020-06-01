@@ -1,0 +1,30 @@
+자바 환경설정
+
+JDK 다운로드
+
+<설치경로>
+C:\Program Files\Java\jdk1.8.0_181\
+
+
+<시스템 변수 path 새로만들기>
+제어판 => 시스템및보안 => 시스템 => 고급시스템설정 => 고급 => 환경변수 => 
+시스템변수 => 새로만들기 => 변수이름을 JAVA_HOME => 
+변수 값을 현재컴퓨터에 java 설치된 디렉토리 ex) C:\Program Files\Java\jdk1.8.0_181
+
+변수이름 = JAVA_HOME
+변수 값 = 현재컴퓨터에 java 설치된 디렉토리
+ex) C:\Program Files\Java\jdk1.8.0_181
+
+<시스템 변수 path 변경 새로설정하기>
+
+제어판 => 시스템및보안 => 시스템 => 고급시스템설정 => 고급 => 환경변수 => 
+시스템변수 => Path => 편집 => 
+
+<변수값을 아래처럼 변경> ex)
+%JAVA_HOME%\bin;C:\Windows\system32;C:\W
+indows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\P
+rogram Files\Git\cmd;C:\Program Files\Git\mingw32\bin;C:\Program Files\Git\usr\b
+in;C:\Program Files\Microsoft VS Code\bin;C:\Python\Python36-32\Scripts\;C:\Pyth
+on\Python36-32\;C:\Program Files\Microsoft VS Code\bin
+
+

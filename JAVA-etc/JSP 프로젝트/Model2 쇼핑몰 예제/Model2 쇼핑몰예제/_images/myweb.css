@@ -1,0 +1,81 @@
+
+A			 {font-family:verdana; font-size:8pt ;text-decoration: none; color:black;}  
+A:hover      {font-family:verdana; font-size:8pt; text-decoration: none; color:blue;}
+A:visited    {font-family:verdana; font-size:8pt; text-decoration: none; color:#861313;}    
+ 
+BODY
+{
+scrollbar-face-color: white; 
+scrollbar-shadow-color: #000000; 
+scrollbar-highlight-color: #000000; 
+scrollbar-3dlight-color: #FFFFFF; 
+scrollbar-darkshadow-color: #FFFFFF; 
+scrollbar-track-color:#ffffff;
+scrollbar-arrow-color: '#ffffff'
+}
+
+.verdana		
+{
+	font-family:verdana; 
+	font-size:8pt;
+}
+FONT
+{
+	font-family:verdana; 
+	font-size:8pt;
+} 
+
+PRE
+{
+	font-family:verdana; 
+	font-size:8pt;
+} 
+	
+.verdana_s
+{
+	font-family:verdana; 
+	font-size:7pt;
+}
+	
+.buttonPE
+{
+	width:18; 
+	height:18; 
+	background-color :#d0d0d0;
+	border: 1 solid white;
+	color : slategray
+}
+
+.buttonPD
+{
+	width:18; 
+	height:18; 
+	background-color :#d0d0d0;
+	border: 1 solid white;
+	color : silver
+}
+		
+TD
+{
+	font-family:verdana;
+	font-size:8pt;
+	line-Height:150%;
+}
+
+TH
+{
+	font-weight:normal;
+	font-family:verdana;
+	font-size:8pt;
+	line-Height:150%;
+	cursor:hand
+}
+	
+Input
+{
+	font-family:verdana;
+	font-size:8pt;
+	border:1px solid silver;
+	padding:1px;
+	padding-left:5px;
+}	
